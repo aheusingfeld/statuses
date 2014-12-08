@@ -7,9 +7,11 @@
             :comments "A business-friendly OSS license"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [ring "1.3.2"]
-                 [compojure "1.2.2"]
+                 [compojure "1.3.1" :exclusions [ring/ring-core]]
                  [clj-time "0.8.0"]
-                 [org.clojure/data.json "0.2.5"]]
+                 [org.clojure/data.json "0.2.5"]
+                 [com.cemerick/friend "0.2.1" :exclusions ([ring/ring-core] [slingshot] [org.apache.httpcomponents/httpclient] [commons-logging])]
+                 [friend-oauth2 "0.1.2" :exclusions  ([commons-codec] [crypto-random])]]
   :pedantic? :abort
   :plugins [[jonase/eastwood "0.2.0"]]
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]}

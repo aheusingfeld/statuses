@@ -4,13 +4,24 @@
   {:title              "Status Updates"
    :database-path      "data/db.json"
    :save-interval      1
+   :host               "localhost"
    :http-port          8080
+   :external-url       "http://localhost:8080"
+   :external-url-path  "/statuses"
    :run-mode           :dev
-   :profile-url-prefix "https://intern.innoq.com/liqid/users/"
-   :avatar-url         "http://assets.github.com/images/gravatars/gravatar-user-420.png"
+   ; {username} is replaced with the username
+   :avatar-url         "https://example.com/ldap/users/{username}/avatar/32x32"
+   :profile-url-prefix "https://example.com/ldap/users/"
    :entry {
            :min-length 1
-           :max-length 140}})
+           :max-length 140}
+   ; set the following parameters to enable openID connect authentication
+   :oauth-server-authorize-uri nil
+   :oauth-server-token-uri     nil
+   :oauth-server-userinfo-uri  nil
+   :oauth-client-id            nil
+   :oauth-client-secret        nil
+   })
 
 (def config-holder (atom default-config))
 

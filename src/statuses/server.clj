@@ -11,8 +11,9 @@
             [statuses.routing :as main])
   (:gen-class))
 
-(def app
-  (-> main/app-routes
+(defn init-app
+  [current-config]
+  (-> (main/site current-config)
       wrap-params
       (wrap-resource "public")
       wrap-content-type
@@ -26,11 +27,13 @@
   (println "Starting server on host"  (config :host)
            "port" (config :http-port)
            "in mode" (config :run-mode))
-  (run-jetty
-    (if (= (config :run-mode) :dev)
-      (wrap-reload app)
-      app)
-    {:host (config :host)
-     :port (config :http-port)
-     :join? false}))
+
+  (let [appl (init-app (config))]
+    (run-jetty
+     (if (= (config :run-mode) :dev)
+       (wrap-reload appl)
+       appl)
+     {:host (config :host)
+      :port (config :http-port)
+      :join? false})))
 

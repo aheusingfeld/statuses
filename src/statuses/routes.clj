@@ -32,8 +32,14 @@
    (str (updates-path) "?query=@" username
         (if response-format (str "&format=" (name response-format)) ""))))
 
+(def logout-template (str base-template "/logout"))
+(defn logout-path [] (str (base-path) "/logout"))
+
 (defn issue-path [] "https://github.com/innoq/statuses/issues"); TODO: read from configuration
 
 (defn avatar-path [username]
   (clojure.string/replace (config :avatar-url) "{username}" username))
+
+(defn user-profile-path [access-token]
+  (str (config :oauth-server-userinfo-uri) "?access_token=" access-token))
 
